@@ -129,4 +129,9 @@ resource "aws_instance" "web" {
   # backend instances.
   subnet_id = "${aws_subnet.default.id}"
 
+  provisioner "remote-exec" {
+    inline = [
+      "touch ~/test.txt",
+    ]
+  }
 }

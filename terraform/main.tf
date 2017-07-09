@@ -140,10 +140,7 @@ resource "aws_instance" "web" {
   }
 
   provisioner "local-exec" {
-    command = [
-      "echo export ec2loc=ec2-user@${aws_instance.web.public_ip} > ~/.ec2loc",
-      "source ~/.bashrc"
-    ]
+    command = "echo export ec2loc=ec2-user@${aws_instance.web.public_ip} > ~/.ec2loc"
   }
 
 }

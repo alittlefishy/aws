@@ -137,4 +137,7 @@ resource "aws_instance" "web" {
       "~/.bash_it/install.sh --silent",
     ]
   }
+
+  provisioner "local-exec" {
+    command = "echo alias myec2='ssh -i ~/.ssh/terraform ec2-user@${aws_instance.web.public_ip}' > ~/.myec2"
 }

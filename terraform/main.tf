@@ -135,9 +135,15 @@ resource "aws_instance" "web" {
       "sudo yum install vim bzip2 git python-virtualenv gcc gcc-gfortran gcc-c++ atlas lapack blas postgresql-devel -y",
       "git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it",
       "~/.bash_it/install.sh --silent",
+      "rm ~/.bashrc.bak",
     ]
   }
 
   provisioner "local-exec" {
-    command = "echo alias myec2='ssh -i ~/.ssh/terraform ec2-user@${aws_instance.web.public_ip}' > ~/.myec2"
+    command = [
+      "echo export ec2loc=ec2-user@${aws_instance.web.public_ip} > ~/.ec2loc",
+      "source ~/.bashrc"
+    ]
+  }
+
 }

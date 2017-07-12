@@ -136,6 +136,12 @@ resource "aws_instance" "web" {
       "git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it",
       "~/.bash_it/install.sh --silent",
       "rm ~/.bashrc.bak",
+      "sudo yum install wget",
+      "mkdir ~/downloads",
+      "mkdir ~/applications",
+      "wget https://repo.continuum.io/archive/Anaconda3-4.4.0-Linux-x86_64.sh -O ~/downloads/anaconda.sh",
+      "bash ~/downloads/anaconda.sh -b -p ~/applications/anaconda",
+      "export PATH=~/applications/anaconda/bin:$PATH",
     ]
   }
 

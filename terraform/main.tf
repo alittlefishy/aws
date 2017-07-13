@@ -141,7 +141,7 @@ resource "aws_instance" "web" {
       "mkdir ~/applications",
       "wget https://repo.continuum.io/archive/Anaconda3-4.4.0-Linux-x86_64.sh -O ~/downloads/anaconda.sh",
       "bash ~/downloads/anaconda.sh -b -p ~/applications/anaconda",
-      "export PATH=~/applications/anaconda/bin:$PATH",
+      "echo export PATH=~/applications/anaconda/bin:'$PATH' >> ~/.bashrc",
     ]
   }
 

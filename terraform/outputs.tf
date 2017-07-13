@@ -1,5 +1,5 @@
 output "address" {
-  value = "${aws_elb.web.dns_name}"
+  value = "${aws_instance.web.dns_name}"
 }
 
 output "ec2_private_ip" {

@@ -47,7 +47,7 @@ resource "aws_security_group" "default" {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["10.0.0.0/16"]
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   # HTTPS access from the VPC
@@ -55,7 +55,7 @@ resource "aws_security_group" "default" {
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
-    cidr_blocks = ["10.0.0.0/16"]
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   # outbound internet access
@@ -112,6 +112,7 @@ resource "aws_instance" "web" {
       "wget https://repo.continuum.io/archive/Anaconda3-4.4.0-Linux-x86_64.sh -O ~/downloads/anaconda.sh",
       "bash ~/downloads/anaconda.sh -b -p ~/applications/anaconda",
       "echo export PATH=~/applications/anaconda/bin:'$PATH' >> ~/.bashrc",
+      "jupyter notebook --generate-config",
     ]
   }
 

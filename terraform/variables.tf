@@ -20,6 +20,11 @@ variable "aws_region" {
   default     = "us-east-2"
 }
 
+variable "subnet_id" {
+  description = "AWS subnet"
+  default = "subnet-b1453fd8"
+}
+
 # Red Hat 
 variable "aws_amis" {
   default = {

@@ -98,7 +98,7 @@ resource "aws_instance" "ds" {
 
   # Refresh local IP
   provisioner "local-exec" {
-    command = "echo export ec2loc=ec2-user@${aws_instance.web.public_ip} > ~/.ec2loc"
+    command = "echo export ec2loc=ec2-user@${aws_instance.ds.public_ip} > ~/.ec2loc"
   }
 
 }

@@ -90,9 +90,15 @@ resource "aws_instance" "ds" {
       "sudo yum -y install wget",
       "mkdir ~/downloads",
       "mkdir ~/applications",
+      "mkdir ~/github",
+      "mkdir ~/data",
       "wget https://repo.continuum.io/archive/Anaconda3-4.4.0-Linux-x86_64.sh -O ~/downloads/anaconda.sh",
       "bash ~/downloads/anaconda.sh -b -p ~/applications/anaconda",
+      "echo # PYTHON PATH >> ~/.bashrc",
       "echo export PATH=~/applications/anaconda/bin:'$PATH' >> ~/.bashrc",
+      "echo # Folder Shortcuts >> ~/.bashrc",
+      "echo export git=~/github >> ~/.bashrc",
+      "echo export data=~/data >> ~/.bashrc",
     ]
   }
 

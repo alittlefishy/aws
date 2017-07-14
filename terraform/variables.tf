@@ -16,10 +16,11 @@ variable "key_name" {
 }
 
 variable "aws_region" {
-  description = "AWS region to launch servers."
+  description = "AWS region to launch servers"
   default     = "us-east-2"
 }
 
+# default subnet for availability zone us-east-2a
 variable "subnet_id" {
   description = "AWS subnet"
   default = "subnet-b1453fd8"

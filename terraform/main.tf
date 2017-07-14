@@ -6,8 +6,8 @@ provider "aws" {
 # Our default security group to access
 # the instances over SSH and HTTP
 resource "aws_security_group" "default" {
-  name        = "access_ssh_http_https"
-  description = "Used in the terraform"
+  name        = "ds_security_group"
+  description = "Fulfills DS needs"
 
   # SSH access from anywhere
   ingress {
@@ -17,7 +17,7 @@ resource "aws_security_group" "default" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  # HTTP access from the VPC
+  # HTTP access from anywhere
   ingress {
     from_port   = 80
     to_port     = 80
@@ -25,7 +25,7 @@ resource "aws_security_group" "default" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  # HTTPS access from the VPC
+  # HTTPS access from anywhere
   ingress {
     from_port   = 443
     to_port     = 443
@@ -33,7 +33,7 @@ resource "aws_security_group" "default" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  # PORT 8888
+  # PORT 8888 access from anywhere
   ingress {
     from_port   = 8888
     to_port     = 8888
@@ -55,7 +55,7 @@ resource "aws_key_pair" "auth" {
   public_key = "${file(var.public_key_path)}"
 }
 
-resource "aws_instance" "web" {
+resource "aws_instance" "ds" {
   # The connection block tells our provisioner how to
   # communicate with the resource (instance)
   connection {
@@ -74,14 +74,12 @@ resource "aws_instance" "web" {
   # The name of our SSH keypair we created above.
   key_name = "${aws_key_pair.auth.id}"
 
-  # Our Security group to allow HTTP and SSH access
+  # Our Security group to allow HTTP, HTTPS, Port 8888 and SSH access
   security_groups = ["${aws_security_group.default.id}"]
-
-  # We're going to launch into the same subnet as our ELB. In a production
-  # environment it's more common to have a separate private subnet for
-  # backend instances.
+  
   subnet_id = "${var.subnet_id}"
 
+  # Provision PYTHON analytical environment
   provisioner "remote-exec" {
     inline = [
       "sudo yum upgrade -y",
@@ -98,6 +96,7 @@ resource "aws_instance" "web" {
     ]
   }
 
+  # Refresh local IP
   provisioner "local-exec" {
     command = "echo export ec2loc=ec2-user@${aws_instance.web.public_ip} > ~/.ec2loc"
   }

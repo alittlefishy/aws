@@ -83,7 +83,7 @@ resource "aws_instance" "ds" {
   provisioner "remote-exec" {
     inline = [
       "sudo yum upgrade -y",
-      "sudo yum install vim bzip2 git python-virtualenv gcc gcc-gfortran gcc-c++ atlas lapack blas postgresql-devel -y",
+      "sudo yum install vim bzip2 git python-virtualenv gcc gcc-gfortran gcc-c++ atlas lapack blas postgresql-devel screen unzip -y",
       "git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it",
       "~/.bash_it/install.sh --silent",
       "rm ~/.bashrc.bak",
